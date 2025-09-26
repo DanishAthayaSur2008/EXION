@@ -56,7 +56,11 @@ export default function SilatPage() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="mb-8">
-          <Button variant="ghost" className="mb-4" onClick={() => window.history.back()}>
+          <Button
+            variant="ghost"
+            className="mb-4"
+            onClick={() => window.history.back()}
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Kembali
           </Button>
@@ -65,8 +69,12 @@ export default function SilatPage() {
             <div className="flex items-center gap-6">
               <div className="text-6xl">🥋</div>
               <div>
-                <h1 className="text-4xl font-bold mb-2">Ekstrakurikuler Pencak Silat</h1>
-                <p className="text-red-100 text-lg">Seni Bela Diri Tradisional Indonesia</p>
+                <h1 className="text-4xl font-bold mb-2">
+                  Ekstrakurikuler Pencak Silat
+                </h1>
+                <p className="text-red-100 text-lg">
+                  Seni Bela Diri Tradisional Indonesia
+                </p>
                 <div className="flex items-center gap-4 mt-4">
                   <Badge variant="secondary" className="bg-white/20 text-white">
                     <Users className="w-4 h-4 mr-1" />
@@ -95,26 +103,40 @@ export default function SilatPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-6">
-                  Pencak Silat adalah seni bela diri tradisional Indonesia yang mengajarkan teknik pertahanan diri,
-                  disiplin, dan nilai-nilai budaya. Ekstrakurikuler ini bertujuan melestarikan warisan budaya sambil
-                  mengembangkan karakter, mental, dan fisik siswa melalui latihan yang terstruktur.
+                  Pencak Silat adalah seni bela diri tradisional Indonesia yang
+                  mengajarkan teknik pertahanan diri, disiplin, dan nilai-nilai
+                  budaya. Ekstrakurikuler ini bertujuan melestarikan warisan
+                  budaya sambil mengembangkan karakter, mental, dan fisik siswa
+                  melalui latihan yang terstruktur.
                 </p>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="text-center p-4 bg-muted rounded-lg">
-                    <div className="text-2xl font-bold text-red-600">{members.length}</div>
+                    <div className="text-2xl font-bold text-red-600">
+                      {members.length}
+                    </div>
                     <div className="text-sm text-muted-foreground">Anggota</div>
                   </div>
                   <div className="text-center p-4 bg-muted rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">{activities.length}</div>
-                    <div className="text-sm text-muted-foreground">Kegiatan</div>
+                    <div className="text-2xl font-bold text-green-600">
+                      {activities.length}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Kegiatan
+                    </div>
                   </div>
                   <div className="text-center p-4 bg-muted rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">{achievements.length}</div>
-                    <div className="text-sm text-muted-foreground">Prestasi</div>
+                    <div className="text-2xl font-bold text-purple-600">
+                      {achievements.length}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Prestasi
+                    </div>
                   </div>
                   <div className="text-center p-4 bg-muted rounded-lg">
-                    <div className="text-2xl font-bold text-yellow-600">{schedule.length}</div>
+                    <div className="text-2xl font-bold text-yellow-600">
+                      {schedule.length}
+                    </div>
                     <div className="text-sm text-muted-foreground">Jadwal</div>
                   </div>
                 </div>
@@ -133,24 +155,36 @@ export default function SilatPage() {
                 {members.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {members.map((member) => (
-                      <div key={member.id} className="flex items-center gap-3 p-4 bg-muted rounded-lg">
+                      <div
+                        key={member.id}
+                        className="flex items-center gap-3 p-4 bg-muted rounded-lg"
+                      >
                         <img
-                          src={member.photoUrl || "/placeholder.svg?height=40&width=40&query=student avatar"}
+                          src={
+                            member.photoUrl ||
+                            "/placeholder.svg?height=40&width=40&query=student avatar"
+                          }
                           alt={member.name}
                           className="w-10 h-10 rounded-full object-cover"
                         />
                         <div className="flex-1">
                           <div className="font-medium">{member.name}</div>
-                          <div className="text-sm text-muted-foreground">{member.class}</div>
+                          <div className="text-sm text-muted-foreground">
+                            {member.class}
+                          </div>
                         </div>
-                        <Badge variant="outline">{member.status === "active" ? "Aktif" : "Tidak Aktif"}</Badge>
+                        <Badge variant="outline">
+                          {member.status === "active" ? "Aktif" : "Tidak Aktif"}
+                        </Badge>
                       </div>
                     ))}
                   </div>
                 ) : (
                   <div className="text-center py-8">
                     <Users className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground">Belum ada anggota terdaftar</p>
+                    <p className="text-muted-foreground">
+                      Belum ada anggota terdaftar
+                    </p>
                   </div>
                 )}
               </CardContent>
@@ -168,19 +202,31 @@ export default function SilatPage() {
                 {activities.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {activities.map((activity) => (
-                      <div key={activity.id} className="bg-muted rounded-lg overflow-hidden">
+                      <div
+                        key={activity.id}
+                        className="bg-muted rounded-lg overflow-hidden"
+                      >
                         <img
-                          src={activity.image || "/placeholder.svg?height=200&width=300&query=pencak silat activity"}
+                          src={
+                            activity.image ||
+                            "/placeholder.svg?height=200&width=300&query=pencak silat activity"
+                          }
                           alt={activity.title}
                           className="w-full h-48 object-cover"
                         />
                         <div className="p-4">
-                          <h3 className="font-semibold mb-2">{activity.title}</h3>
-                          <p className="text-sm text-muted-foreground mb-3">{activity.description}</p>
+                          <h3 className="font-semibold mb-2">
+                            {activity.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground mb-3">
+                            {activity.description}
+                          </p>
                           <div className="flex items-center justify-between text-sm text-muted-foreground">
                             <div className="flex items-center gap-1">
                               <Calendar className="w-4 h-4" />
-                              <span>{activity.date.toLocaleDateString("id-ID")}</span>
+                              <span>
+                                {activity.date.toLocaleDateString("id-ID")}
+                              </span>
                             </div>
                             <div className="flex items-center gap-1">
                               <MapPin className="w-4 h-4" />
@@ -194,7 +240,9 @@ export default function SilatPage() {
                 ) : (
                   <div className="text-center py-8">
                     <Camera className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground">Belum ada dokumentasi kegiatan</p>
+                    <p className="text-muted-foreground">
+                      Belum ada dokumentasi kegiatan
+                    </p>
                   </div>
                 )}
               </CardContent>
@@ -218,16 +266,26 @@ export default function SilatPage() {
                       <div key={item.id} className="p-3 bg-muted rounded-lg">
                         <div className="font-medium text-sm">{item.title}</div>
                         <div className="text-xs text-muted-foreground">
-                          {item.day}, {item.startTime} - {item.endTime}
+                          {new Date(item.date).toLocaleDateString("id-ID", {
+                            weekday: "long",
+                          })}
+                          , {item.startTime} - {item.endTime}
                         </div>
-                        {item.location && <div className="text-xs text-muted-foreground">📍 {item.location}</div>}
+
+                        {item.location && (
+                          <div className="text-xs text-muted-foreground">
+                            📍 {item.location}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
                 ) : (
                   <div className="text-center py-4">
                     <Clock className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                    <p className="text-sm text-muted-foreground">Belum ada jadwal</p>
+                    <p className="text-sm text-muted-foreground">
+                      Belum ada jadwal
+                    </p>
                   </div>
                 )}
               </CardContent>
@@ -243,7 +301,9 @@ export default function SilatPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">Aula Sekolah</p>
-                <p className="text-sm text-muted-foreground mt-2">Gedung Utama, Lantai 1</p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Gedung Utama, Lantai 1
+                </p>
               </CardContent>
             </Card>
 
@@ -263,11 +323,17 @@ export default function SilatPage() {
                         key={achievement.id}
                         className="p-3 bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-950 dark:to-orange-950 rounded-lg border"
                       >
-                        <div className="font-semibold text-sm">{achievement.title}</div>
-                        <div className="text-xs text-muted-foreground">{achievement.description}</div>
+                        <div className="font-semibold text-sm">
+                          {achievement.title}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {achievement.description}
+                        </div>
                         <div className="flex items-center justify-between mt-2">
                           <Badge variant="outline">{achievement.level}</Badge>
-                          <span className="text-xs text-muted-foreground">{achievement.date.getFullYear()}</span>
+                          <span className="text-xs text-muted-foreground">
+                            {achievement.date.getFullYear()}
+                          </span>
                         </div>
                       </div>
                     ))}
@@ -275,7 +341,9 @@ export default function SilatPage() {
                 ) : (
                   <div className="text-center py-4">
                     <Award className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                    <p className="text-sm text-muted-foreground">Belum ada prestasi</p>
+                    <p className="text-sm text-muted-foreground">
+                      Belum ada prestasi
+                    </p>
                   </div>
                 )}
               </CardContent>
@@ -289,9 +357,15 @@ export default function SilatPage() {
               <CardContent>
                 <div className="space-y-2">
                   <p className="font-medium">Pak Dedi Silat</p>
-                  <p className="text-sm text-muted-foreground">Pelatih Pencak Silat</p>
-                  <p className="text-sm text-muted-foreground">📞 0815-6789-0123</p>
-                  <p className="text-sm text-muted-foreground">✉️ dedi.silat@sman1.sch.id</p>
+                  <p className="text-sm text-muted-foreground">
+                    Pelatih Pencak Silat
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    📞 0815-6789-0123
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    ✉️ dedi.silat@sman1.sch.id
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -299,5 +373,5 @@ export default function SilatPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Users, Calendar, CheckCircle, XCircle, Clock, Download } from "lucide-react"
+import { Users, Calendar, CircleCheck as CheckCircle, Circle as XCircle, Clock, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -22,7 +22,7 @@ export default function AdminAttendanceManagement() {
   const getCurrentEkskulType = () => {
     if (!user) return null
     if (user.role === "super_admin") return null
-    return user.role.replace("_admin", "") as "robotik" | "silat" | "futsal" | "musik"
+    return user.role.replace("_admin", "") as "robotik" | "silat" | "futsal" | "musik" | "hadroh" | "qori"
   }
 
   useEffect(() => {

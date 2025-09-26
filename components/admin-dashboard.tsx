@@ -3,27 +3,7 @@
 import { useState, useEffect } from "react"
 import type React from "react"
 
-import {
-  LayoutDashboard,
-  FileText,
-  Users,
-  Settings,
-  LogOut,
-  Menu,
-  X,
-  Plus,
-  Calendar,
-  MapPin,
-  Camera,
-  Edit,
-  Trash2,
-  UserPlus,
-  GraduationCap,
-  Shield,
-  Clock,
-  Trophy,
-  BarChart3,
-} from "lucide-react"
+import { LayoutDashboard, FileText, Users, Settings, LogOut, Menu, X, Plus, Calendar, MapPin, Camera, CreditCard as Edit, Trash2, UserPlus, GraduationCap, Shield, Clock, Trophy, ChartBar as BarChart3 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -99,6 +79,10 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
         return "Futsal"
       case "band":
         return "Band"
+      case "hadroh":
+        return "Hadroh"
+      case "qori":
+        return "Qori"
       default:
         return "Semua Ekstrakurikuler"
     }
@@ -117,6 +101,10 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
         return "Admin Futsal"
       case "band_admin":
         return "Admin Band"
+      case "hadroh_admin":
+        return "Admin Hadroh"
+      case "qori_admin":
+        return "Admin Qori"
       default:
         return "Administrator"
     }

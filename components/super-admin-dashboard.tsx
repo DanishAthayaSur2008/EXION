@@ -2,27 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Save, Download } from "lucide-react"
-import {
-  LayoutDashboard,
-  Users,
-  UserCog,
-  Settings,
-  LogOut,
-  Menu,
-  X,
-  Plus,
-  Shield,
-  BarChart3,
-  Activity,
-  Trophy,
-  FileText,
-  Edit,
-  Trash2,
-  AlertTriangle,
-  CheckCircle,
-  TrendingUp,
-  Eye,
-} from "lucide-react"
+import { LayoutDashboard, Users, UserCog, Settings, LogOut, Menu, X, Plus, Shield, ChartBar as BarChart3, Activity, Trophy, FileText, CreditCard as Edit, Trash2, TriangleAlert as AlertTriangle, CircleCheck as CheckCircle, TrendingUp, Eye } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -81,6 +61,8 @@ export default function SuperAdminDashboard({ onLogout }: SuperAdminDashboardPro
     { value: "silat", label: "Pencak Silat", color: "text-red-700", bgColor: "bg-red-100" },
     { value: "futsal", label: "Futsal", color: "text-orange-700", bgColor: "bg-orange-100" },
     { value: "band", label: "Band", color: "text-purple-700", bgColor: "bg-purple-100" },
+    { value: "hadroh", label: "Hadroh", color: "text-emerald-700", bgColor: "bg-emerald-100" },
+    { value: "qori", label: "Qori", color: "text-indigo-700", bgColor: "bg-indigo-100" },
   ]
 
   const navigationItems = [
@@ -438,6 +420,8 @@ export default function SuperAdminDashboard({ onLogout }: SuperAdminDashboardPro
                     <SelectItem value="silat_admin">Admin Pencak Silat</SelectItem>
                     <SelectItem value="futsal_admin">Admin Futsal</SelectItem>
                     <SelectItem value="band_admin">Admin Band</SelectItem>
+                    <SelectItem value="hadroh_admin">Admin Hadroh</SelectItem>
+                    <SelectItem value="qori_admin">Admin Qori</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

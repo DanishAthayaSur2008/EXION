@@ -12,7 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Textarea } from "@/components/ui/textarea"
-import { Trash2, Edit, Plus, Search, Filter } from "lucide-react"
+import { Trash2, CreditCard as Edit, Plus, Search, Filter } from "lucide-react"
 import { memberOperations } from "@/lib/crud-operations"
 import { useAuth } from "@/hooks/use-auth"
 import CloudinaryUpload from "./cloudinary-upload"

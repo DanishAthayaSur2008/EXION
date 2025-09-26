@@ -35,7 +35,7 @@ export const uploadToCloudinary = async (
   return new Promise((resolve, reject) => {
     const formData = new FormData()
     formData.append("file", file)
-    formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "ekskul_uploads")
+    formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "foto_dokumentasi")
     formData.append("folder", folder)
 
     if (options?.tags) {
@@ -166,6 +166,10 @@ export const getFolderForEkskul = (ekskulType: string): string => {
     case "band":
     case "music":
       return "ekskul/music"
+    case "hadroh":
+      return "ekskul/hadroh"
+    case "qori":
+      return "ekskul/qori"
     default:
       return "ekskul/documentation"
   }
