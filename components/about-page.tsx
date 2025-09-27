@@ -15,19 +15,19 @@ export default function AboutPage() {
       icon: GraduationCap,
       title: "Misi",
       description:
-        "Menyelenggarakan pendidikan berkualitas dengan mengintegrasikan akademik, karakter, dan pengembangan bakat siswa.",
+        "Menyelenggarakan Sekolah Menengah Kejuruan (SMK) yang berkualitas",
     },
     {
       icon: Users,
       title: "Nilai",
       description:
-        "Integritas, Inovasi, Kolaborasi, dan Keunggulan dalam setiap aspek pendidikan dan pengembangan diri.",
+        "Melahirkan lulusan yang berkarakter unggul siap kerja",
     },
     {
       icon: Award,
       title: "Tujuan",
       description:
-        "Mengembangkan potensi siswa secara optimal melalui kegiatan akademik dan non-akademik yang berkualitas.",
+        "Mewujudkan generasi SDM yang berdaya saing global.",
     },
   ]
 
@@ -56,7 +56,7 @@ export default function AboutPage() {
         {/* School Image */}
         <div className="mb-16">
           <img
-            src="/modern-school-building.png"
+            src="https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg"
             alt="SMK TI BAZMA"
             className="w-full h-96 object-cover rounded-2xl shadow-lg"
           />

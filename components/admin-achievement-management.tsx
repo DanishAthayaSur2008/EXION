@@ -1,18 +1,18 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Trophy, Medal, Award, Plus, CreditCard as Edit, Trash2, Save, X } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
+import { Textarea } from "@/components/ui/textarea"
 import { useAuth } from "@/hooks/use-auth"
-import CloudinaryUpload from "./cloudinary-upload"
-import { addAchievement, getAchievements, updateAchievement, deleteAchievement } from "@/lib/firebase-service"
+import { addAchievement, deleteAchievement, getAchievements, updateAchievement } from "@/lib/firebase-service"
 import type { Achievement } from "@/types"
+import { Award, CreditCard as Edit, Medal, Plus, Save, Trash2, Trophy, X } from "lucide-react"
+import { useEffect, useState } from "react"
+import CloudinaryUpload from "./cloudinary-upload"
 
 export default function AdminAchievementManagement() {
   const { user } = useAuth()
@@ -21,14 +21,6 @@ export default function AdminAchievementManagement() {
   const [loading, setLoading] = useState(false)
   const [editingAchievement, setEditingAchievement] = useState<Achievement | null>(null)
 
-  const [newAchievement, setNewAchievement] = useState({
-    title: "",
-    description: "",
-    date: "",
-    level: "",
-    position: "",
-    participants: [] as string[],
-  })
 
   const [achievementPhotoPreview, setAchievementPhotoPreview] = useState<string>("")
   const [uploadResults, setUploadResults] = useState<{ secure_url: string }[]>([])
@@ -96,6 +88,24 @@ export default function AdminAchievementManagement() {
       setLoading(false)
     }
   }
+const [newAchievement, setNewAchievement] = useState<AchievementForm>({
+  title: "",
+  description: "",
+  date: "",
+  level: "Sekolah", // harus salah satu dari union
+  position: "",
+  participants: [],
+})
+type AchievementLevel = "Sekolah" | "Kota" | "Provinsi" | "Nasional" | "Internasional"
+
+type AchievementForm = {
+  title: string
+  description: string
+  date: string
+  level: AchievementLevel
+  position: string
+  participants: string[]
+}
 
   const handleEditAchievement = (achievement: Achievement) => {
     setEditingAchievement(achievement)
@@ -132,7 +142,7 @@ export default function AdminAchievementManagement() {
       title: "",
       description: "",
       date: "",
-      level: "",
+      level: "Sekolah",
       position: "",
       participants: [],
     })
@@ -359,21 +369,24 @@ export default function AdminAchievementManagement() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="achievementLevel">Tingkat</Label>
-                  <Select
-                    value={newAchievement.level}
-                    onValueChange={(value) => setNewAchievement({ ...newAchievement, level: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Pilih tingkat" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Sekolah">Sekolah</SelectItem>
-                      <SelectItem value="Kota">Kota</SelectItem>
-                      <SelectItem value="Provinsi">Provinsi</SelectItem>
-                      <SelectItem value="Nasional">Nasional</SelectItem>
-                      <SelectItem value="Internasional">Internasional</SelectItem>
-                    </SelectContent>
-                  </Select>
+               <Select
+  value={newAchievement.level}
+  onValueChange={(value: AchievementLevel) =>
+    setNewAchievement({ ...newAchievement, level: value })
+  }
+>
+  <SelectTrigger>
+    <SelectValue placeholder="Pilih tingkat" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="Sekolah">Sekolah</SelectItem>
+    <SelectItem value="Kota">Kota</SelectItem>
+    <SelectItem value="Provinsi">Provinsi</SelectItem>
+    <SelectItem value="Nasional">Nasional</SelectItem>
+    <SelectItem value="Internasional">Internasional</SelectItem>
+  </SelectContent>
+</Select>
+
                 </div>
                 <div>
                   <Label htmlFor="achievementPosition">Posisi/Peringkat</Label>
