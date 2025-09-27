@@ -17,29 +17,7 @@
   import { Card, CardContent } from "@/components/ui/card"
   import { useEffect, useState } from "react"
   import { ScrollRevealText, ParallaxSection, AnimatedCard } from "./advanced-animations"
-
-  interface Documentation {
-    id: number
-    title: string
-    description: string
-    date: string
-    location: string
-    participants: string
-    image: string
-    ekskulType?: string
-  }
-
-  interface Member {
-    id: number
-    name: string
-    class: string
-    phone: string
-    email: string
-    joinDate: string
-    status: string
-    photo?: string
-    ekskulType?: string
-  }
+  import { Documentation, Member } from "@/types"
 
   interface HomePageProps {
     onNavigate: (section: string) => void

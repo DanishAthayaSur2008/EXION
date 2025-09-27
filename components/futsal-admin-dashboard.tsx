@@ -1,19 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import {
-  LayoutDashboard,
-  FileText,
-  Users,
-  Settings,
-  Trophy,
-  BarChart3,
-  Target,
-  Timer,
-  MapPin,
-  Calendar,
-  Menu,
-} from "lucide-react"
+import { LayoutDashboard, FileText, Users, Settings, Trophy, ChartBar as BarChart3, Target, Timer, MapPin, Calendar, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -23,6 +11,10 @@ import type { Member, Documentation, Achievement } from "@/types"
 import LoadingSpinner from "./loading-spinner"
 import DashboardCard from "./dashboard-card"
 import DashboardSidebar from "./dashboard-sidebar"
+import AdminMemberCRUD from "./admin-member-crud"
+import AdminDocumentationCRUD from "./admin-documentation-crud"
+import AdminAttendanceManagement from "./admin-attendance-management"
+import AdminAchievementManagement from "./admin-achievement-management"
 
 interface FutsalAdminDashboardProps {
   onLogout: () => void

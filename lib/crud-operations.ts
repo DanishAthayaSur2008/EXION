@@ -62,14 +62,35 @@ function getFolderForEkskul(ekskulType: EkskulType) {
 export class CRUDService<T> {
   constructor(private collectionName: string) {}
 
-  async create(data: Omit<T, "id">): Promise<string> {
-    const docRef = await addDoc(collection(db, this.collectionName), {
-      ...data,
-      createdAt: Timestamp.now(),
-      updatedAt: Timestamp.now(),
-    })
-    return docRef.id
+async create(data: Omit<T, "id">): Promise<string> {
+  const docData: any = { ...data, createdAt: Timestamp.now(), updatedAt: Timestamp.now() }
+
+  // Tambahkan joinDate hanya jika ada
+  if ((data as any).joinDate) {
+    docData.joinDate =
+      (data as any).joinDate instanceof Date
+        ? Timestamp.fromDate((data as any).joinDate)
+        : new Date((data as any).joinDate)
   }
+
+  const docRef = await addDoc(collection(db, this.collectionName), docData)
+  return docRef.id
+}
+
+async update(id: string, data: Partial<T>): Promise<void> {
+  const docData: any = { ...data, updatedAt: Timestamp.now() }
+
+  if ((data as any).joinDate) {
+    docData.joinDate =
+      (data as any).joinDate instanceof Date
+        ? Timestamp.fromDate((data as any).joinDate)
+        : new Date((data as any).joinDate)
+  }
+
+  const docRef = doc(db, this.collectionName, id)
+  await updateDoc(docRef, docData)
+}
+
 
   async read(id: string): Promise<T | null> {
     const docRef = doc(db, this.collectionName, id)
@@ -77,13 +98,6 @@ export class CRUDService<T> {
     return docSnap.exists() ? ({ id: docSnap.id, ...docSnap.data() } as T) : null
   }
 
-  async update(id: string, data: Partial<T>): Promise<void> {
-    const docRef = doc(db, this.collectionName, id)
-    await updateDoc(docRef, {
-      ...data,
-      updatedAt: Timestamp.now(),
-    })
-  }
 
   async delete(id: string): Promise<void> {
     const docRef = doc(db, this.collectionName, id)
@@ -91,17 +105,46 @@ export class CRUDService<T> {
   }
 
   async list(filters?: { field: string; operator: any; value: any }[]): Promise<T[]> {
-    let q = collection(db, this.collectionName)
+    let q: any = collection(db, this.collectionName)
 
     if (filters && filters.length > 0) {
       const constraints = filters.map((f) => where(f.field, f.operator, f.value))
-      q = query(q, ...constraints, orderBy("createdAt", "desc")) as any
+      try {
+        q = query(q, ...constraints, orderBy("createdAt", "desc"))
+      } catch (error) {
+        // Fallback without orderBy if there's an index issue
+        q = query(q, ...constraints)
+      }
     } else {
-      q = query(q, orderBy("createdAt", "desc")) as any
+      try {
+        q = query(q, orderBy("createdAt", "desc"))
+      } catch (error) {
+        // Use collection without orderBy if there's an index issue
+        q = collection(db, this.collectionName)
+      }
     }
 
     const snapshot = await getDocs(q)
-    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as T[]
+    return snapshot.docs.map((doc) => {
+      const docData = doc.data() as any
+      // Convert Firestore Timestamps to Date objects
+      const converted: any = { ...docData }
+      
+      if (docData.date && typeof docData.date.toDate === 'function') {
+        converted.date = docData.date.toDate()
+      }
+      if (docData.joinDate && typeof docData.joinDate.toDate === 'function') {
+        converted.joinDate = docData.joinDate.toDate()
+      }
+      if (docData.createdAt && typeof docData.createdAt.toDate === 'function') {
+        converted.createdAt = docData.createdAt.toDate()
+      }
+      if (docData.updatedAt && typeof docData.updatedAt.toDate === 'function') {
+        converted.updatedAt = docData.updatedAt.toDate()
+      }
+      
+      return { id: doc.id, ...converted }
+    }) as T[]
   }
 
   subscribe(callback: (data: T[]) => void, filters?: { field: string; operator: any; value: any }[]): () => void {
@@ -109,13 +152,40 @@ export class CRUDService<T> {
 
     if (filters) {
       const constraints = filters.map((f) => where(f.field, f.operator, f.value))
-      q = query(q, ...constraints, orderBy("createdAt", "desc")) as any
+      try {
+        q = query(q, ...constraints, orderBy("createdAt", "desc")) as any
+      } catch (error) {
+        // Fallback without orderBy if there's an index issue
+        q = query(q, ...constraints) as any
+      }
     } else {
-      q = query(q, orderBy("createdAt", "desc")) as any
+      try {
+        q = query(q, orderBy("createdAt", "desc")) as any
+      } catch (error) {
+        // Fallback without orderBy if there's an index issue
+        q = collection(db, this.collectionName) as any
+      }
     }
 
     return onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as T[]
+      const data = snapshot.docs.map((doc) => {
+        const docData = doc.data()
+        // Convert Firestore Timestamps to Date objects
+        const converted = { ...docData }
+        
+     if (docData.joinDate && typeof docData.joinDate.toDate === "function") {
+  converted.joinDate = docData.joinDate.toDate()
+}
+if (docData.createdAt && typeof docData.createdAt.toDate === "function") {
+  converted.createdAt = docData.createdAt.toDate()
+}
+if (docData.updatedAt && typeof docData.updatedAt.toDate === "function") {
+  converted.updatedAt = docData.updatedAt.toDate()
+}
+
+        
+        return { id: doc.id, ...converted }
+      }) as T[]
       callback(data)
     })
   }
@@ -134,8 +204,10 @@ export const eventsService = new CRUDService<Event>("events")
 // ==========================
 // Specialized Operations
 // ==========================
-export const memberOperations = {
-  ...membersService,
+export const memberOperations = new (class extends CRUDService<Member> {
+  constructor() {
+    super("members")
+  }
 
   async updateWithPhoto(id: string, data: Partial<Member>, photoFile?: File) {
     const updateData = { ...data }
@@ -143,8 +215,8 @@ export const memberOperations = {
       const uploadResult = await uploadToCloudinary(photoFile, "members")
       updateData.photoUrl = uploadResult.secure_url || uploadResult.url
     }
-    return membersService.update(id, updateData)
-  },
+    return this.update(id, updateData)
+  }
 
   async createWithPhoto(data: Omit<Member, "id">, photoFile?: File) {
     const createData = { ...data }
@@ -152,12 +224,14 @@ export const memberOperations = {
       const uploadResult = await uploadToCloudinary(photoFile, "members")
       createData.photoUrl = uploadResult.secure_url || uploadResult.url
     }
-    return membersService.create(createData)
-  },
-}
+    return this.create(createData)
+  }
+})()
 
-export const achievementOperations = {
-  ...achievementsService,
+export const achievementOperations = new (class extends CRUDService<Achievement> {
+  constructor() {
+    super("achievements")
+  }
 
   async createWithPhoto(data: Omit<Achievement, "id">, photoFile?: File) {
     const createData = { ...data }
@@ -166,8 +240,8 @@ export const achievementOperations = {
       const uploadResult = await uploadToCloudinary(photoFile, folder)
       createData.photoUrl = uploadResult.secure_url || uploadResult.url
     }
-    return achievementsService.create(createData)
-  },
+    return this.create(createData)
+  }
 
   async updateWithPhoto(id: string, data: Partial<Achievement>, photoFile?: File) {
     const updateData = { ...data }
@@ -176,26 +250,30 @@ export const achievementOperations = {
       const uploadResult = await uploadToCloudinary(photoFile, folder)
       updateData.photoUrl = uploadResult.secure_url || uploadResult.url
     }
-    return achievementsService.update(id, updateData)
-  },
-}
+    return this.update(id, updateData)
+  }
+})()
 
-export const documentationOperations = {
-  ...documentationService,
+
+export const documentationOperations = new (class extends CRUDService<Documentation> {
+  constructor() {
+    super("documentation")
+  }
 
   async createWithPhotos(data: Omit<Documentation, "id">, photoFiles: File[]) {
     const folder = getFolderForEkskul(data.ekskulType)
     const uploadResults = await uploadMultipleToCloudinary(photoFiles, folder)
     const photoUrls = uploadResults.map((r) => r.secure_url || r.url)
-    return documentationService.create({
+
+    return this.create({
       ...data,
       photoUrls,
       image: photoUrls[0] || "",
     })
-  },
+  }
 
   async addPhotos(id: string, photoFiles: File[]) {
-    const doc = await documentationService.read(id)
+    const doc = await this.read(id)
     if (!doc) throw new Error("Documentation not found")
 
     const folder = getFolderForEkskul(doc.ekskulType)
@@ -203,9 +281,11 @@ export const documentationOperations = {
     const newUrls = uploadResults.map((r) => r.secure_url || r.url)
     const updatedPhotoUrls = [...(doc.photoUrls || []), ...newUrls]
 
-    return documentationService.update(id, {
+    return this.update(id, {
       photoUrls: updatedPhotoUrls,
       image: updatedPhotoUrls[0] || doc.image,
     })
-  },
-}
+  }
+})()
+
+
