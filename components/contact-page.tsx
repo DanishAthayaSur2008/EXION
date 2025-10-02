@@ -12,13 +12,13 @@ export default function ContactPage() {
     {
       icon: MapPin,
       title: "Alamat",
-      content: "Jl. Pendidikan No. 123, Kota Bandung, Jawa Barat 40123",
+      content: "Jl. Raya Cikampak Cicadas, RT.1/RW.1, Cicadas, Kec. Ciampea, Kabupaten Bogor, Jawa Barat 16620",
       color: "text-blue-600",
     },
     {
       icon: Phone,
       title: "Telepon",
-      content: "(022) 1234-5678",
+      content: "0811-1144-339",
       color: "text-green-600",
     },
     {
@@ -36,10 +36,15 @@ export default function ContactPage() {
   ]
 
   const ekstrakurikulerContacts = [
-    { name: "Robotik", contact: "Pak Ahmad - 0812-3456-7890" },
-    { name: "Futsal", contact: "Pak Budi - 0813-4567-8901" },
-    { name: "Musik", contact: "Bu Sari - 0814-5678-9012" },
-    { name: "Pencak Silat", contact: "Pak Dedi - 0815-6789-0123" },
+    { name: "Robotik", contact: "Bu Parni Handayani - +62 899-4447-469" },
+    { name: "Futsal", contact: "Pak Fajar Zulhijjah - +62 831-0651-7043" },
+    { name: "Musik", contact: "Pak Candra - +62 896-6222-5833" },
+    { name: "Software Development", contact: "Pak Mirza Bakti - +62 888-0280-4685" },
+    { name: "Paskibra", contact: "Pak Rangga - +62 896-1618-8708" },
+    { name: "Qori", contact: "Pak Dedi - 0815-6789-0123" },//belum ada nomor
+    { name: "Hadroh", contact: "Pak Dedi - 0815-6789-0123" },//bellum ada nomor
+    { name: "Pencak Silat", contact: "Pak Hardi - +62 838-9382-8409" },
+    { name: "Pramuka", contact: "Pak Kamil & Iwan- +62 831-4574-4703" }
   ]
 
   return (
