@@ -196,30 +196,34 @@ export default function DocumentationGalleryPage() {
               <div className="p-6">
                 <h2 className="text-2xl font-bold mb-3">{selectedImage.title}</h2>
                 <p className="text-muted-foreground mb-4 leading-relaxed">
-                  {selectedImage.description}
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="flex items-center gap-2 text-sm">
-                    <Calendar className="w-4 h-4 text-primary" />
+                  
+                     {selectedImage.location && (
+                    <div className="flex items-center gap-2  text-sm">
+                       {selectedImage.participants && (
+                    <div className="flex items-center gap-2 text-sm">
+                      <Users className="w-4 h-4 text-primary " />
+                      <span>{selectedImage.participants}</span>
+                    </div>
+                  )}
+                        <Calendar className="w-4 h-4 text-primary" />
                     <span>{new Date(selectedImage.date).toLocaleDateString("id-ID", {
                       weekday: 'long',
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric'
                     })}</span>
-                  </div>
-                  {selectedImage.location && (
-                    <div className="flex items-center gap-2 text-sm">
                       <MapPin className="w-4 h-4 text-primary" />
                       <span>{selectedImage.location}</span>
                     </div>
                   )}
-                  {selectedImage.participants && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <Users className="w-4 h-4 text-primary" />
-                      <span>{selectedImage.participants}</span>
-                    </div>
-                  )}
+                 
+                  {selectedImage.description}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="flex items-center gap-2 text-sm">
+                  
+                  </div>
+               
                 </div>
               </div>
             </div>

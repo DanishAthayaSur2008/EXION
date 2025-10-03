@@ -285,7 +285,7 @@ export default function HadrohPage() {
                     <p className="text-sm text-muted-foreground">Belum ada prestasi</p>
                   </div>
                 )}
-              </CardContent>
+              </CardContent>-
             </Card>
 
             {/* Contact */}
@@ -295,7 +295,7 @@ export default function HadrohPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <p className="font-medium">Ustadz Ahmad Hadroh</p>
+                  <p className="font-medium">Ustadz Abdullah</p>
                   <p className="text-sm text-muted-foreground">Pembina Hadroh</p>
                   <p className="text-sm text-muted-foreground">📞 0816-7890-1234</p>
                   <p className="text-sm text-muted-foreground">✉️ ahmad.hadroh@smktibazma.sch.id</p>

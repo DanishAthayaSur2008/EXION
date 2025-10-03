@@ -19,6 +19,7 @@
   import { ScrollRevealText, ParallaxSection, AnimatedCard } from "./advanced-animations"
   import { Documentation, Member } from "@/types"
 
+
   interface HomePageProps {
     onNavigate: (section: string) => void
     dokumentasi?: Documentation[]
@@ -35,47 +36,77 @@
       window.addEventListener("scroll", handleScroll)
       return () => window.removeEventListener("scroll", handleScroll)
     }, [])
+const headerImages = [
+  { 
+    src: "/IoT.webp", 
+    alt: "Siswa Robotik", 
+    title: "Program Robotik", 
+    description: "Mengembangkan teknologi masa depan dengan kreativitas dan inovasi." 
+  },
+  { 
+    src: "/silat.webp", 
+    alt: "Pencak Silat", 
+    title: "Pencak Silat", 
+    description: "Melestarikan budaya Indonesia sekaligus melatih disiplin dan ketangkasan." 
+  },
+  { 
+    src: "/futsal.webp", 
+    alt: "Futsal", 
+    title: "Futsal", 
+    description: "Membangun kerja sama tim dan sportivitas di lapangan." 
+  },
+  { 
+    src: "/musik.jpeg", 
+    alt: "Musik", 
+    title: "Musik", 
+    description: "Mengekspresikan kreativitas dan jiwa seni melalui nada dan irama." 
+  },
+  { 
+    src: "/hadroh.jpeg", 
+    alt: "Hadroh", 
+    title: "Hadroh", 
+    description: "Menguatkan spiritualitas melalui seni musik islami." 
+  },
+  { 
+    src: "/pramuka.webp", 
+    alt: "Pramuka", 
+    title: "Pramuka", 
+    description: "Melatih kemandirian, kepemimpinan, dan kebersamaan dalam kegiatan kepramukaan." 
+  },
+  { 
+    src: "/paskib.jpeg", 
+    alt: "Paskibra", 
+    title: "Paskibra", 
+    description: "Menanamkan jiwa nasionalisme dan kedisiplinan melalui baris-berbaris." 
+  },
+  { 
+    src: "/pramuka.webp", 
+    alt: "Coding", 
+    title: "Coding Club", 
+    description: "Mengasah kemampuan logika dan pemrograman untuk menghadapi era digital." 
+  },
+  { 
+    src: "/pramuka.webp", 
+    alt: "Qori", 
+    title: "Qori", 
+    description: "Meningkatkan keindahan tilawah Al-Qur'an dengan suara merdu." 
+  },
+]
 
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % headerImages.length)
-      }, 5000)
-      return () => clearInterval(interval)
-    }, [])
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCurrentImageIndex((prev) => (prev + 1) % headerImages.length) 
+  }, 5000)
+  return () => clearInterval(interval)
+}, [headerImages.length])
 
-    const headerImages = [
-      {
-        src: "https://images.pexels.com/photos/8566473/pexels-photo-8566473.jpeg",
-        alt: "Siswa Robotik",
-        title: "Program Robotik",
-        description: "Mengembangkan teknologi masa depan",
-      },
-      {
-        src: "https://images.pexels.com/photos/7045715/pexels-photo-7045715.jpeg",
-        alt: "Pencak Silat",
-        title: "Pencak Silat",
-        description: "Melestarikan budaya Indonesia",
-      },
-      {
-        src: "https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg",
-        alt: "Futsal",
-        title: "Futsal",
-        description: "Membangun kerja sama tim",
-      },
-      {
-        src: "https://images.pexels.com/photos/164821/pexels-photo-164821.jpeg",
-        alt: "Musik",
-        title: "Musik",
-        description: "Mengekspresikan kreativitas",
-      },
-    ]
 
     const featuredExtracurriculars = [
       {
         id: "robotik",
         name: "Robotik",
         description: "Build and innovate—where creativity meets technology",
-        image: "https://images.pexels.com/photos/8566473/pexels-photo-8566473.jpeg",
+        image: "/IoT.webp",
         members: members.filter((m) => m.ekskulType === "robotik").length || 24,
         achievements: 12,
         category: "STEM",
@@ -88,7 +119,7 @@
         id: "futsal",
         name: "Futsal",
         description: "Teamwork and agility—score your goals together",
-        image: "https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg",
+        image: "/futsal.webp",
         members: members.filter((m) => m.ekskulType === "futsal").length || 32,
         achievements: 8,
         category: "Olahraga",
@@ -101,7 +132,7 @@
         id: "musik",
         name: "Musik",
         description: "Express yourself—let the rhythm guide you",
-        image: "https://images.pexels.com/photos/164821/pexels-photo-164821.jpeg",
+        image: "/musik.jpeg",
         members: members.filter((m) => m.ekskulType === "musik").length || 20,
         achievements: 15,
         category: "Seni",
@@ -114,7 +145,7 @@
         id: "silat",
         name: "Pencak Silat",
         description: "Discipline and strength—master your mind and body",
-        image: "https://images.pexels.com/photos/7045715/pexels-photo-7045715.jpeg",
+        image: "/silat.webp",
         members: members.filter((m) => m.ekskulType === "silat").length || 18,
         achievements: 10,
         category: "Budaya",
@@ -127,7 +158,7 @@
         id: "hadroh",
         name: "Hadroh",
         description: "Harmony and spirituality—express faith through music",
-        image: "https://images.pexels.com/photos/6192297/pexels-photo-6192297.jpeg",
+        image: "hadroh.jpeg",
         members: members.filter((m) => m.ekskulType === "hadroh").length || 22,
         achievements: 8,
         category: "Seni Islami",
@@ -410,27 +441,9 @@
                       </div>
                       <CardContent className="p-8">
                         <h3 className="font-heading font-bold text-2xl mb-4">{doc.title}</h3>
-                        <p className="text-muted-foreground mb-6 leading-relaxed text-lg line-clamp-2">
+                        <p className="text-muted-foregroundleading-relaxed text-lg line-clamp-2">
                           {doc.description}
                         </p>
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-3 text-muted-foreground">
-                            <Calendar className="w-5 h-5 text-primary" />
-                            <span className="font-medium">{new Date(doc.date).toLocaleDateString("id-ID")}</span>
-                          </div>
-                          {doc.location && (
-                            <div className="flex items-center gap-3 text-muted-foreground">
-                              <MapPin className="w-5 h-5 text-primary" />
-                              <span className="font-medium">{doc.location}</span>
-                            </div>
-                          )}
-                          {doc.participants && (
-                            <div className="flex items-center gap-3 text-muted-foreground">
-                              <Users className="w-5 h-5 text-primary" />
-                              <span className="font-medium">{doc.participants}</span>
-                            </div>
-                          )}
-                        </div>
                       </CardContent>
                     </Card>
                   </AnimatedCard>
