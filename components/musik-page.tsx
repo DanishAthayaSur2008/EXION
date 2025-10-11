@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
-export default function MusikPage() {
+export default function MusikPage({ onNavigate }) {
   const members = [
     { name: "Andi Mustofa", role: "Ketua", avatar: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg", instrument: "Gitar", class: "XI IPA 1" },
     {
@@ -98,7 +98,7 @@ export default function MusikPage() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="mb-8">
-          <Button variant="ghost" className="mb-4" onClick={() => window.history.back()}>
+          <Button variant="ghost" className="mb-4" onClick={() =>  onNavigate("extracurriculars")}>
             <ArrowLeft className="w-4 h-4 mr-2" />
             Kembali
           </Button>

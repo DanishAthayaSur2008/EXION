@@ -33,7 +33,8 @@ const getDateFromFirestore = (date: any): Date => {
   }
 }
 
-export default function RobotikPage() {
+export default function RobotikPage({ onNavigate }) 
+ {
   const [members, setMembers] = useState<Member[]>([])
   const [activities, setActivities] = useState<Documentation[]>([])
   const [achievements, setAchievements] = useState<Achievement[]>([])
@@ -81,14 +82,15 @@ export default function RobotikPage() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="mb-8">
-          <Button
-            variant="ghost"
-            className="mb-4"
-            onClick={() => window.history.back()}
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Kembali
-          </Button>
+         <Button
+  variant="ghost"
+  className="mb-4"
+  onClick={() => onNavigate("extracurriculars")}
+>
+  <ArrowLeft className="w-4 h-4 mr-2" />
+  Kembali
+</Button>
+
 
           <div className="bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl p-8 text-white">
             <div className="flex items-center gap-6">

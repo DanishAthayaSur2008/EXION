@@ -7,8 +7,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { getMembers, getDocumentation, getAchievements, getSchedules } from "@/lib/firebase-service"
 import type { Member, Documentation, Achievement, Schedule } from "@/types"
+import { on } from "events"
 
-export default function SilatPage() {
+export default function SilatPage({ onNavigate })  {
   const [members, setMembers] = useState<Member[]>([])
   const [activities, setActivities] = useState<Documentation[]>([])
   const [achievements, setAchievements] = useState<Achievement[]>([])
@@ -59,7 +60,7 @@ export default function SilatPage() {
           <Button
             variant="ghost"
             className="mb-4"
-            onClick={() => window.history.back()}
+            onClick={() =>  onNavigate("extracurriculars")}
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Kembali

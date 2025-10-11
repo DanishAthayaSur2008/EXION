@@ -9,6 +9,7 @@ import BandAdminDashboard from "./band-admin-dashboard"
 import HadrohAdminDashboard from "./hadroh-admin-dashboard"
 import QoriAdminDashboard from "./qori-admin-dashboard"
 import PramukaAdminDashboard from "./pramuka-admin-dashboard"
+import PaskibAdminDashboard from "./paskib-admin-dashboard"
 import AdminDashboard from "./admin-dashboard"
 import AdminErrorBoundary from "./admin-error-boundary"
 import LoadingSpinner from "./loading-spinner"
@@ -87,6 +88,12 @@ export default function AdminDashboardRouter({ onLogout }: AdminDashboardRouterP
         return (
           <AdminErrorBoundary>
             <PramukaAdminDashboard onLogout={onLogout} />
+          </AdminErrorBoundary>
+        )
+      case "paskib_admin":
+        return (
+          <AdminErrorBoundary>
+            <PaskibAdminDashboard onLogout={onLogout} />
           </AdminErrorBoundary>
         )
       default:

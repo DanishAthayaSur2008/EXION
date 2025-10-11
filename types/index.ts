@@ -10,6 +10,8 @@ export interface User {
     | "band_admin"
     | "hadroh_admin"
     | "qori_admin"
+    | "pramuka_admin"
+    | "paskib_admin"
   createdAt: Date
   updatedAt: Date
 }
@@ -99,6 +101,8 @@ export type EkskulType =
   | "musik"
   | "hadroh"
   | "qori"
+  | "pramuka"
+  | "paskib"
   | "umum"
 
 export interface Event {

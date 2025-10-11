@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
-export default function FutsalPage() {
+export default function FutsalPage({ onNavigate }) {
   const members = [
     {
       name: "Rio Ferdinand",
@@ -110,7 +110,7 @@ export default function FutsalPage() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="mb-8">
-          <Button variant="ghost" className="mb-4" onClick={() => window.history.back()}>
+          <Button variant="ghost" className="mb-4" onClick={() =>  onNavigate("extracurriculars")}>
             <ArrowLeft className="w-4 h-4 mr-2" />
             Kembali
           </Button>

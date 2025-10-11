@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { getMembers, getDocumentation, getAchievements, getSchedules } from "@/lib/firebase-service"
 import type { Member, Documentation, Achievement, Schedule } from "@/types"
 
-export default function PramukaPage({ onNavigate }) {
+export default function PaskibPage({ onNavigate }) {
   const [members, setMembers] = useState<Member[]>([])
   const [activities, setActivities] = useState<Documentation[]>([])
   const [achievements, setAchievements] = useState<Achievement[]>([])
@@ -20,10 +20,10 @@ export default function PramukaPage({ onNavigate }) {
       try {
         setLoading(true)
         const [membersData, activitiesData, achievementsData, scheduleData] = await Promise.all([
-          getMembers("pramuka"),
-          getDocumentation("pramuka"),
-          getAchievements("pramuka"),
-          getSchedules("pramuka"),
+          getMembers("paskib"),
+          getDocumentation("paskib"),
+          getAchievements("paskib"),
+          getSchedules("paskib"),
         ])
 
         setMembers(membersData)
@@ -31,7 +31,7 @@ export default function PramukaPage({ onNavigate }) {
         setAchievements(achievementsData)
         setSchedule(scheduleData)
       } catch (error) {
-        console.error("Error loading pramuka data:", error)
+        console.error("Error loading paskib data:", error)
       } finally {
         setLoading(false)
       }
@@ -45,7 +45,7 @@ export default function PramukaPage({ onNavigate }) {
       <div className="min-h-screen py-8 flex items-center justify-center">
         <div className="flex items-center gap-3">
           <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
-          <span className="text-muted-foreground">Memuat data pramuka...</span>
+          <span className="text-muted-foreground">Memuat data paskib...</span>
         </div>
       </div>
     )
@@ -58,21 +58,21 @@ export default function PramukaPage({ onNavigate }) {
           <Button
             variant="ghost"
             className="mb-4"
-            onClick={() =>  onNavigate("extracurriculars")}
+            onClick={() => onNavigate("extracurriculars")}
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Kembali
           </Button>
 
-          <div className="bg-gradient-to-r from-amber-600 to-orange-500 rounded-2xl p-8 text-white">
+          <div className="bg-gradient-to-r from-red-600 to-rose-500 rounded-2xl p-8 text-white">
             <div className="flex items-center gap-6">
-              <div className="text-6xl">🏕️</div>
+              <div className="text-6xl">🎖️</div>
               <div>
                 <h1 className="text-4xl font-bold mb-2">
-                  Ekstrakurikuler Pramuka
+                  Ekstrakurikuler Paskibra
                 </h1>
-                <p className="text-amber-100 text-lg">
-                  Gerakan Kepanduan Indonesia
+                <p className="text-red-100 text-lg">
+                  Pasukan Pengibar Bendera Pusaka
                 </p>
                 <div className="flex items-center gap-4 mt-4">
                   <Badge variant="secondary" className="bg-white/20 text-white">
@@ -95,21 +95,21 @@ export default function PramukaPage({ onNavigate }) {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Target className="w-5 h-5" />
-                  Tentang Ekstrakurikuler Pramuka
+                  Tentang Ekstrakurikuler Paskibra
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-6">
-                  Gerakan Pramuka adalah organisasi pendidikan nonformal yang
-                  menyelenggarakan pendidikan kepanduan yang dilaksanakan di Indonesia.
-                  Kegiatan ini mengembangkan karakter, kepemimpinan, kemandirian, dan
-                  kecintaan terhadap alam dan lingkungan melalui berbagai aktivitas outdoor
-                  dan pembelajaran nilai-nilai kepramukaan.
+                  Pasukan Pengibar Bendera Pusaka (Paskibra) adalah kelompok siswa
+                  terpilih yang bertugas mengibarkan bendera merah putih pada upacara
+                  bendera. Kegiatan ini melatih disiplin, kekompakan, ketangkasan,
+                  dan rasa nasionalisme melalui latihan baris-berbaris dan prosedur
+                  pengibaran bendera yang khidmat.
                 </p>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="text-center p-4 bg-muted rounded-lg">
-                    <div className="text-2xl font-bold text-amber-600">
+                    <div className="text-2xl font-bold text-red-600">
                       {members.length}
                     </div>
                     <div className="text-sm text-muted-foreground">Anggota</div>
@@ -123,7 +123,7 @@ export default function PramukaPage({ onNavigate }) {
                     </div>
                   </div>
                   <div className="text-center p-4 bg-muted rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">
+                    <div className="text-2xl font-bold text-blue-600">
                       {achievements.length}
                     </div>
                     <div className="text-sm text-muted-foreground">
@@ -155,7 +155,7 @@ export default function PramukaPage({ onNavigate }) {
                         key={member.id}
                         className="flex items-center gap-3 p-3 rounded-lg border bg-card hover:bg-muted/50 transition-colors"
                       >
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white font-bold text-lg">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-red-400 to-rose-500 flex items-center justify-center text-white font-bold text-lg">
                           {member.name.charAt(0)}
                         </div>
                         <div className="flex-1">
@@ -315,13 +315,13 @@ export default function PramukaPage({ onNavigate }) {
                 <div>
                   <div className="text-sm font-semibold mb-1">Jadwal</div>
                   <div className="text-sm text-muted-foreground">
-                    Sabtu, 08:00 - 12:00
+                    Senin & Kamis, 15:00 - 17:00
                   </div>
                 </div>
                 <div>
                   <div className="text-sm font-semibold mb-1">Lokasi</div>
                   <div className="text-sm text-muted-foreground">
-                    Lapangan Sekolah
+                    Lapangan Upacara
                   </div>
                 </div>
               </CardContent>

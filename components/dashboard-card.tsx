@@ -7,7 +7,7 @@ interface DashboardCardProps {
   value: string | number
   description?: string
   icon: LucideIcon
-  variant?: "default" | "primary" | "success" | "warning" | "danger"
+  variant?: "default" | "primary" | "success" | "warning" | "danger" | "info"
   trend?: {
     value: number
     label: string
@@ -55,6 +55,12 @@ export default function DashboardCard({
       iconBg: "bg-red-100 dark:bg-red-900/20",
       iconColor: "text-red-600 dark:text-red-400",
       valueColor: "text-red-600 dark:text-red-400",
+    },
+    info: {
+      border: "border-l-4 border-l-cyan-500",
+      iconBg: "bg-cyan-100 dark:bg-cyan-900/20",
+      iconColor: "text-cyan-600 dark:text-cyan-400",
+      valueColor: "text-cyan-600 dark:text-cyan-400",
     },
   }
 

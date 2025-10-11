@@ -12,6 +12,7 @@ export default function DocumentationGalleryPage() {
   const [documentation, setDocumentation] = useState<Documentation[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedImage, setSelectedImage] = useState<Documentation | null>(null)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [filter, setFilter] = useState<string>("all")
 
   useEffect(() => {
@@ -39,6 +40,7 @@ export default function DocumentationGalleryPage() {
     { id: "hadroh", label: "Hadroh" },
     { id: "qori", label: "Qori" },
     { id: "pramuka", label: "Pramuka" },
+    { id: "paskib", label: "Paskibra" },
   ]
 
   const filteredDocs = filter === "all"
@@ -47,10 +49,24 @@ export default function DocumentationGalleryPage() {
 
   const handleImageClick = (doc: Documentation) => {
     setSelectedImage(doc)
+    setCurrentImageIndex(0)
   }
 
   const handleCloseModal = () => {
     setSelectedImage(null)
+    setCurrentImageIndex(0)
+  }
+
+  const handlePrevDocImage = () => {
+    if (!selectedImage) return
+    const images = selectedImage.photoUrls || [selectedImage.image].filter(Boolean) as string[]
+    setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1))
+  }
+
+  const handleNextDocImage = () => {
+    if (!selectedImage) return
+    const images = selectedImage.photoUrls || [selectedImage.image].filter(Boolean) as string[]
+    setCurrentImageIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0))
   }
 
   const handlePrevImage = () => {
@@ -182,16 +198,48 @@ export default function DocumentationGalleryPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="bg-background rounded-2xl overflow-hidden shadow-2xl">
-              <div className="aspect-video bg-muted flex items-center justify-center overflow-hidden">
-                {selectedImage.image ? (
-                  <img
-                    src={selectedImage.image}
-                    alt={selectedImage.title}
-                    className="w-full h-full object-contain"
-                  />
-                ) : (
-                  <Camera className="w-24 h-24 text-muted-foreground" />
-                )}
+              <div className="aspect-video bg-muted flex items-center justify-center overflow-hidden relative">
+                {(() => {
+                  const images = selectedImage.photoUrls || [selectedImage.image].filter(Boolean) as string[]
+                  const currentImage = images[currentImageIndex]
+
+                  return currentImage ? (
+                    <>
+                      <img
+                        src={currentImage}
+                        alt={selectedImage.title}
+                        className="w-full h-full object-contain"
+                      />
+                      {images.length > 1 && (
+                        <>
+                          <button
+                            className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handlePrevDocImage()
+                            }}
+                          >
+                            <ChevronLeft className="w-6 h-6 text-white" />
+                          </button>
+                          <button
+                            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handleNextDocImage()
+                            }}
+                          >
+                            <ChevronRight className="w-6 h-6 text-white" />
+                          </button>
+                          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black/50 text-white text-sm">
+                            {currentImageIndex + 1} / {images.length}
+                          </div>
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <Camera className="w-24 h-24 text-muted-foreground" />
+                  )
+                })()}
               </div>
               <div className="p-6">
                 <h2 className="text-2xl font-bold mb-3">{selectedImage.title}</h2>

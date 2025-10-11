@@ -1,31 +1,37 @@
 "use client"
 
-import React from "react"
-import { useState, useEffect } from "react"
-import Navbar from "@/components/navbar"
-import HomePage from "@/components/home-page"
 import AboutPage from "@/components/about-page"
-import ExtracurricularsPage from "@/components/extracurriculars-page"
 import AchievementsPage from "@/components/achievements-page"
+import AdminDashboardRouter from "@/components/admin-dashboard-router"
+import AdminLoginPage from "@/components/admin-login-page"
 import ContactPage from "@/components/contact-page"
+import DocumentationGalleryPage from "@/components/documentation-gallery-page"
+import ExtracurricularsPage from "@/components/extracurriculars-page"
+import Footer from "@/components/footer"
+import FutsalPage from "@/components/futsal-page"
+import HadrohPage from "@/components/hadroh-page"
+import HomePage from "@/components/home-page"
+import { LoadingScreen } from "@/components/loading-screen"
+import MusikPage from "@/components/musik-page"
+import Navbar from "@/components/navbar"
+import PramukaPage from "@/components/pramuka-page"
+import PaskibPage from "@/components/paskib-page"
+import QoriPage from "@/components/qori-page"
 import RobotikPage from "@/components/robotik-page"
 import SilatPage from "@/components/silat-page"
-import FutsalPage from "@/components/futsal-page"
-import MusikPage from "@/components/musik-page"
-import HadrohPage from "@/components/hadroh-page"
-import QoriPage from "@/components/qori-page"
-import PramukaPage from "@/components/pramuka-page"
-import DocumentationGalleryPage from "@/components/documentation-gallery-page"
-import AdminLoginPage from "@/components/admin-login-page"
-import AdminDashboardRouter from "@/components/admin-dashboard-router"
-import Footer from "@/components/footer"
-import { LoadingScreen } from "@/components/loading-screen"
 import { useAuth } from "@/hooks/use-auth"
 import { getDocumentation, getMembers } from "@/lib/firebase-service"
 import type { Documentation, Member } from "@/types"
+import React, { useEffect, useState } from "react"
 
 export default function SchoolWebsite() {
-  const [activeSection, setActiveSection] = useState("home")
+  const [activeSection, setActiveSection] = useState(() => {
+    if (typeof window !== "undefined") {
+      const hash = window.location.hash.slice(1)
+      return hash || sessionStorage.getItem("activeSection") || "home"
+    }
+    return "home"
+  })
   const { user, loading } = useAuth()
   const [showLoadingScreen, setShowLoadingScreen] = useState(() => {
     // Only show loading screen if this is the first visit
@@ -82,6 +88,25 @@ export default function SchoolWebsite() {
     setActiveSection("home")
   }
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("activeSection", activeSection)
+      window.location.hash = activeSection === "home" ? "" : activeSection
+    }
+  }, [activeSection])
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1)
+      if (hash) {
+        setActiveSection(hash)
+      }
+    }
+
+    window.addEventListener("hashchange", handleHashChange)
+    return () => window.removeEventListener("hashchange", handleHashChange)
+  }, [])
+
   const renderPage = () => {
     if (user && activeSection === "admin-dashboard") {
       return <AdminDashboardRouter onLogout={handleLogout} />
@@ -106,20 +131,22 @@ export default function SchoolWebsite() {
         return <AchievementsPage />
       case "contact":
         return <ContactPage />
-      case "robotik":
-        return <RobotikPage />
+case "robotik":
+  return <RobotikPage onNavigate={setActiveSection} />
       case "silat":
-        return <SilatPage />
+        return <SilatPage onNavigate={setActiveSection}/>
       case "futsal":
-        return <FutsalPage />
+        return <FutsalPage onNavigate={setActiveSection}/>
       case "musik":
-        return <MusikPage />
+        return <MusikPage onNavigate={setActiveSection}/>
       case "hadroh":
-        return <HadrohPage />
+        return <HadrohPage onNavigate={setActiveSection}/>
       case "qori":
-        return <QoriPage />
+        return <QoriPage onNavigate={setActiveSection}/>
       case "pramuka":
-        return <PramukaPage />
+        return <PramukaPage onNavigate={setActiveSection}/>
+      case "paskib":
+        return <PaskibPage onNavigate={setActiveSection}/>
       case "documentation":
         return <DocumentationGalleryPage />
       default:

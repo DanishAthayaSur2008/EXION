@@ -108,6 +108,19 @@ export default function ExtracurricularsPage({ onNavigate }: ExtracurricularsPag
       color: "from-amber-500 to-orange-500",
       icon: "🏕️",
     },
+    {
+      id: "paskib",
+      name: "Paskibra",
+      category: "Kepanduan",
+      description: "Pasukan Pengibar Bendera Pusaka yang melatih kedisiplinan, kekompakan, dan nasionalisme.",
+      image: "/paskib.jpeg",
+      members: 28,
+      schedule: "Senin & Kamis, 15:00-17:00",
+      location: "Lapangan Upacara",
+      achievements: ["Juara 1 LKBB Tingkat Kota", "Best Marching Team Award"],
+      color: "from-red-500 to-rose-500",
+      icon: "🎖️",
+    },
   ]
 
   const categories = ["Semua", "Teknologi", "Olahraga", "Seni", "Bela Diri", "Seni Islami", "Tilawah", "Kepanduan"]
@@ -144,41 +157,41 @@ export default function ExtracurricularsPage({ onNavigate }: ExtracurricularsPag
           {extracurriculars.map((ekskul) => (
             <Card
               key={ekskul.id}
-              className="group cursor-pointer hover:shadow-xl transition-all duration-300 overflow-hidden"
+              className="group cursor-pointer hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full"
               onClick={() => onNavigate(ekskul.id)}
             >
-              <div className="relative">
+              <div className="relative h-48 flex-shrink-0">
                 <img
                   src={ekskul.image || "/placeholder.svg"}
                   alt={ekskul.name}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className={`absolute top-4 left-4 bg-gradient-to-r ${ekskul.color} px-3 py-1 rounded-full`}>
+                <div className={`absolute top-4 left-4 bg-gradient-to-r ${ekskul.color} px-3 py-1 rounded-full shadow-lg`}>
                   <span className="text-white font-semibold text-sm">{ekskul.category}</span>
                 </div>
-                <div className="absolute top-4 right-4 text-2xl">{ekskul.icon}</div>
+                <div className="absolute top-4 right-4 text-3xl drop-shadow-lg">{ekskul.icon}</div>
               </div>
 
-              <CardContent className="p-6">
+              <CardContent className="p-6 flex flex-col flex-1">
                 <h3 className="font-semibold text-xl mb-2">{ekskul.name}</h3>
-                <p className="text-muted-foreground mb-4 line-clamp-3">{ekskul.description}</p>
+                <p className="text-muted-foreground mb-4 line-clamp-3 flex-1">{ekskul.description}</p>
 
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center text-sm text-muted-foreground">
-                    <Users className="h-4 w-4 mr-2" />
-                    {ekskul.members} anggota aktif
+                    <Users className="h-4 w-4 mr-2 flex-shrink-0" />
+                    <span>{ekskul.members} anggota aktif</span>
                   </div>
                   <div className="flex items-center text-sm text-muted-foreground">
-                    <Clock className="h-4 w-4 mr-2" />
-                    {ekskul.schedule}
+                    <Clock className="h-4 w-4 mr-2 flex-shrink-0" />
+                    <span>{ekskul.schedule}</span>
                   </div>
                   <div className="flex items-center text-sm text-muted-foreground">
-                    <MapPin className="h-4 w-4 mr-2" />
-                    {ekskul.location}
+                    <MapPin className="h-4 w-4 mr-2 flex-shrink-0" />
+                    <span>{ekskul.location}</span>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between pt-2 border-t mt-auto">
                   <Badge variant="secondary" className="text-xs">
                     {ekskul.achievements.length} prestasi
                   </Badge>

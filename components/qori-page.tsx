@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { getMembers, getDocumentation, getAchievements, getSchedules } from "@/lib/firebase-service"
 import type { Member, Documentation, Achievement, Schedule } from "@/types"
 
-export default function QoriPage() {
+export default function QoriPage({ onNavigate }) {
   const [members, setMembers] = useState<Member[]>([])
   const [activities, setActivities] = useState<Documentation[]>([])
   const [achievements, setAchievements] = useState<Achievement[]>([])
@@ -56,7 +56,7 @@ export default function QoriPage() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="mb-8">
-          <Button variant="ghost" className="mb-4" onClick={() => window.history.back()}>
+          <Button variant="ghost" className="mb-4" onClick={() =>  onNavigate("extracurriculars")}>
             <ArrowLeft className="w-4 h-4 mr-2" />
             Kembali
           </Button>
